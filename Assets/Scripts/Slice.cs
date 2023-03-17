@@ -33,10 +33,10 @@ public class Slice : MonoBehaviour
             Destroy(sliceEffect, 1f);
 
             Destroy(other.gameObject);
+            Destroy(slicedUp, 5);
+            Destroy(slicedDown, 5);
         }
-
     }
-
 
     public SlicedHull Cut(GameObject obj, Material mat = null)
     {
