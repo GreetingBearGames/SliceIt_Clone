@@ -365,7 +365,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 73
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -390,8 +390,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776226746}
-  m_LocalRotation: {x: 0.24698299, y: -0.27552223, z: 0.0734783, w: 0.92611444}
-  m_LocalPosition: {x: 11.151669, y: 10.376209, z: -37.322853}
+  m_LocalRotation: {x: -0.10182272, y: -0.8550062, z: 0.18357936, w: -0.47423118}
+  m_LocalPosition: {x: -8.144054, y: 7.540017, z: -16.846483}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 1509943870}
   - component: {fileID: 1509943871}
   m_Layer: 0
-  m_Name: Knife
+  m_Name: Knife(for Slicing)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
