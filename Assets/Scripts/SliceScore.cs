@@ -6,12 +6,15 @@ using TMPro;
 public class SliceScore : MonoBehaviour
 {
     private int _scoreAmount;
+    private int _levelStartScore;
 
 
     void Start()
     {
         _scoreAmount = PlayerPrefs.GetInt("Score", 0);
         GetComponent<TextMeshProUGUI>().text = _scoreAmount.ToString();
+
+        _levelStartScore = _scoreAmount;
     }
 
 
