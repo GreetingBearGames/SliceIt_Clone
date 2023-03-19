@@ -6,8 +6,12 @@ using EzySlice;
 
 public class Slice : MonoBehaviour
 {
-    public Material[] mat;
-    public GameObject sliceEffectPrefab;
+    [SerializeField] Material[] _sliceHalfMaterials;
+    [SerializeField] GameObject _sliceParticle;
+    [SerializeField] SliceCombiner _sliceCombiner;
+    [SerializeField] SliceUISpawner _sliceUISpawner;
+    [SerializeField] SliceScore _sliceScore;
+
 
     void Start()
     {
@@ -20,21 +24,23 @@ public class Slice : MonoBehaviour
 
         if (other.gameObject.tag == "Cuttable")
         {
-            int randomColorIndex = Random.Range(1, mat.Length);
+            int randomColorIndex = Random.Range(1, _sliceHalfMaterials.Length);
 
-            SlicedHull slicedObject = Cut(other.gameObject, mat[randomColorIndex]);
-            GameObject slicedUp = slicedObject.CreateUpperHull(other.gameObject, mat[randomColorIndex]);
-            GameObject slicedDown = slicedObject.CreateLowerHull(other.gameObject, mat[randomColorIndex]);
-
+            SlicedHull slicedObject = Cut(other.gameObject, _sliceHalfMaterials[randomColorIndex]);
+            GameObject slicedUp = slicedObject.CreateUpperHull(other.gameObject, _sliceHalfMaterials[randomColorIndex]);
+            GameObject slicedDown = slicedObject.CreateLowerHull(other.gameObject, _sliceHalfMaterials[randomColorIndex]);
             AddComponent(slicedUp);
             AddComponent(slicedDown);
 
-            GameObject sliceEffect = Instantiate(sliceEffectPrefab, other.transform.position + new Vector3(0, 0, -1), Quaternion.Euler(-90, 0, 0));
-            Destroy(sliceEffect, 1f);
+            GameObject sliceEffect = Instantiate(_sliceParticle, other.transform.position + new Vector3(0, 0, -1), Quaternion.Euler(-90, 0, 0));
 
             Destroy(other.gameObject);
             Destroy(slicedUp, 5);
             Destroy(slicedDown, 5);
+
+            _sliceCombiner.CounterIncrease();
+            _sliceUISpawner.SpawnUIText(other.transform.position);
+            _sliceScore.IncreaseScore();
         }
     }
 
@@ -52,6 +58,5 @@ public class Slice : MonoBehaviour
         obj.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
         obj.GetComponent<Rigidbody>().AddExplosionForce(10, obj.transform.position, 10);
     }
-
 
 }
