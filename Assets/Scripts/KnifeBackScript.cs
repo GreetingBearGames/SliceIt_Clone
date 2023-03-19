@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KnifeBackScript : MonoBehaviour
-{
-    
+{   
     KnifeController knifeController;
     void Start()
     {
@@ -14,4 +13,9 @@ public class KnifeBackScript : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         knifeController.CollisionController(other,"KnifeBack");
     }
+
+    private void OnTriggerExit(Collider other) {
+        GetComponent<MeshCollider>().isTrigger = true;
+    }
+
 }

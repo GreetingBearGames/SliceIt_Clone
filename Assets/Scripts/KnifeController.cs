@@ -27,6 +27,9 @@ public class KnifeController : MonoBehaviour
     [Header ("Controls")]
     [SerializeField] bool isTouchingGround;
     [SerializeField] bool isCutting;
+    [SerializeField] bool isFailed;
+    [SerializeField] bool isMove = true;
+    [SerializeField] bool isTapped;
 
     [Space]
     [Header ("Colliders")]
@@ -41,9 +44,6 @@ public class KnifeController : MonoBehaviour
     BoxCollider BoxCollider;
     Vector3 spinTorque;
     float knifeAngle;
-    bool isMove = true;
-    
-    bool isTapped;
 
     void Start()
     {
@@ -53,16 +53,28 @@ public class KnifeController : MonoBehaviour
         spinTorque = new Vector3(knifeSpinTorque,0,0);
     }
 
+    private void Update() {
+        if (isTouchingGround)
+        {
+            //RigidBody.velocity = Vector3.zero;
+            //RigidBody.maxAngularVelocity = 0f;
+            RigidBody.isKinematic = true;
+        }
+    }
     private void FixedUpdate()
     {
         if (Input.GetMouseButtonDown(0))
-        {
+        {   
+            Debug.Log("Tıklama");
             isTapped = true;
             RigidBody.isKinematic = false;
+            knifeEdgeCollider.isTrigger = true;
+            TurnSpeedControl();
             Jump();
             Spin();            
             DOVirtual.DelayedCall(0.4f,(()=>isTapped = false));
         }
+
 
         TurnSpeedControl();
         RigidBody.inertiaTensorRotation = Quaternion.identity;
@@ -71,6 +83,7 @@ public class KnifeController : MonoBehaviour
     void Jump(){
         RigidBody.velocity = Vector3.zero;
         RigidBody.angularVelocity = Vector3.zero;
+        knifeBackCollider.isTrigger = true;
 
         if (isTouchingGround)
         {
@@ -110,11 +123,14 @@ public class KnifeController : MonoBehaviour
         if(isTapped){
             RigidBody.maxAngularVelocity = maxAVFast;
         }
+        
+        if(isFailed){
+            RigidBody.maxAngularVelocity = 0f;
+            RigidBody.velocity = Vector3.zero;
+        }
     }
    
-    //* Bunlar DoTween Delayed Call ile yapılabilir
-
-    void EnableCollider(){
+    void EnableCollider(){ //* Delayed Call ile yapılabilir
         knifeEdgeCollider.enabled = true;
         isTouchingGround = false;
     }
@@ -127,28 +143,50 @@ public class KnifeController : MonoBehaviour
             if(tag == "Ground"){
                 isTouchingGround = true;
                 isCutting = false;
-                RigidBody.isKinematic = true;
-                RigidBody.angularVelocity = Vector3.zero;
+                knifeEdgeCollider.isTrigger = false;
             }
             else if (tag == "Cuttable"){
                 isCutting = true;
                 RigidBody.AddForce(Vector3.down,ForceMode.Impulse);
                 DOVirtual.DelayedCall(1,(() => isCutting = false));      
             }
-            else if (tag == "FailObstacle"){
-                //* Fail olacağı durumlar
+            else if (tag == "Obstacle"){
+                Fail();
             }            
         }
         else if (sender == "KnifeBack")
         {
-            if(tag == "FailObstacle"){
-                //* Fail olacağı durumlar
+            if(tag == "Obstacle"){
+                Fail();
+            }
+            else if(tag == "Ground"){
+                RigidBody.MovePosition(new Vector3(transform.position.x,transform.position.y,transform.position.z+jumpZBounce));
             }
             else if(!isCutting)
             {
-                RigidBody.AddForce(new Vector3(0,jumpYBounce,jumpZBounce),ForceMode.Impulse);
-                RigidBody.velocity = Vector3.zero;
+                RigidBody.MovePosition(new Vector3(transform.position.x,transform.position.y,transform.position.z+jumpZBounce));
             }
         }
     }
+
+    void Bounce(Collider other){
+        Vector3 bounceDirection = (transform.position - other.transform.position).normalized;
+        float tempY=jumpYBounce,tempZ=jumpZBounce;
+        Debug.Log(bounceDirection);
+        tempY = bounceDirection.y<0 ? tempY*-1 : tempY;
+        tempZ = bounceDirection.z<0 ? tempZ*-1 : tempZ;
+
+        if (other.CompareTag("Ground"))
+        {
+           RigidBody.AddTorque(new Vector3(0,tempY,tempZ).normalized,ForceMode.Impulse);
+        }
+        else if(other.CompareTag("Cuttable"))
+        {
+            tempY = 0;
+            RigidBody.MovePosition(new Vector3(transform.position.x,transform.position.y+tempY,transform.position.z+tempZ));
+        }
+    }
+    private void Fail(){
+    }
+
 }

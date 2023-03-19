@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class KnifeEdgeScript : MonoBehaviour
 {
+   
     KnifeController knifeController;
+
+    
     void Start()
     {
         knifeController = GetComponentInParent<KnifeController>();
@@ -13,4 +16,6 @@ public class KnifeEdgeScript : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         knifeController.CollisionController(other,"KnifeEdge");
     }
+
+    
 }
