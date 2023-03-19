@@ -5,7 +5,7 @@ using TMPro;
 
 public class FinishCoinAmount : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         FinishCoinCalculator();
     }
@@ -13,7 +13,6 @@ public class FinishCoinAmount : MonoBehaviour
 
     private void FinishCoinCalculator()
     {
-        //levelstartscore gamemanager'dan alınacak.
-        //GetComponent<TextMeshProUGUI>().text = "$ " + GameManager.instance.GetLevelStartScore().ToString();
+        GetComponent<TextMeshProUGUI>().text = "$ " + GameManager.Instance.LevelStartScore.ToString();
     }
 }

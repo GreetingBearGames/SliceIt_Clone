@@ -38,6 +38,7 @@ public class Slice : MonoBehaviour
             Destroy(slicedUp, 5);
             Destroy(slicedDown, 5);
 
+            Handheld.Vibrate();
             _sliceCombiner.CounterIncrease();
             _sliceUISpawner.SpawnUIText(other.transform.position);
             _sliceScore.IncreaseScore();
