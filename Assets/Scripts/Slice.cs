@@ -30,6 +30,7 @@ public class Slice : MonoBehaviour
             AddComponent(slicedDown);
 
             GameObject sliceEffect = Instantiate(sliceEffectPrefab, other.transform.position + new Vector3(0, 0, -1), Quaternion.Euler(-90, 0, 0));
+            Handheld.Vibrate();
             Destroy(sliceEffect, 1f);
 
             Destroy(other.gameObject);
