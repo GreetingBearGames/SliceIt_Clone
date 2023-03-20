@@ -14,8 +14,6 @@ public class KnifeBackScript : MonoBehaviour
         knifeController.CollisionController(other,"KnifeBack");
     }
 
-    private void OnTriggerExit(Collider other) {
-        GetComponent<MeshCollider>().isTrigger = true;
-    }
+    
 
 }

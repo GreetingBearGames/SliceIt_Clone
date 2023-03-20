@@ -25,11 +25,14 @@ public class KnifeController : MonoBehaviour
     
     [Space]
     [Header ("Controls")]
+
+    [SerializeField] string touchingObject;
     [SerializeField] bool isTouchingGround;
     [SerializeField] bool isCutting;
     [SerializeField] bool isFailed;
     [SerializeField] bool isMove = true;
     [SerializeField] bool isTapped;
+    [SerializeField] bool isBounce;
 
     [Space]
     [Header ("Colliders")]
@@ -37,37 +40,30 @@ public class KnifeController : MonoBehaviour
     [SerializeField] Collider knifeEdgeCollider;
 
     [Space]
-    [Header ("Scripts")]
-    [SerializeField] Slice backSliceScript;
+    //[Header ("Scripts")]
 
-    Rigidbody RigidBody;
-    BoxCollider BoxCollider;
+
+    Rigidbody rigidBody;
+    BoxCollider boxCollider;
     Vector3 spinTorque;
     float knifeAngle;
-
     void Start()
     {
-        RigidBody = GetComponent<Rigidbody>();
-        BoxCollider = GetComponent<BoxCollider>();
-        RigidBody.maxAngularVelocity = 10f;
-        spinTorque = new Vector3(knifeSpinTorque,0,0);
+        rigidBody = GetComponent<Rigidbody>();
+        boxCollider = GetComponent<BoxCollider>();
+        rigidBody.maxAngularVelocity = 10f;
+        spinTorque = new Vector3(knifeSpinTorque,0,0);        
     }
 
     private void Update() {
-        if (isTouchingGround)
-        {
-            //RigidBody.velocity = Vector3.zero;
-            //RigidBody.maxAngularVelocity = 0f;
-            RigidBody.isKinematic = true;
-        }
-    }
-    private void FixedUpdate()
-    {
         if (Input.GetMouseButtonDown(0))
         {   
-            Debug.Log("Tıklama");
+            if (isFailed)
+            {
+                return;
+            }
             isTapped = true;
-            RigidBody.isKinematic = false;
+            rigidBody.isKinematic = false;
             knifeEdgeCollider.isTrigger = true;
             TurnSpeedControl();
             Jump();
@@ -75,80 +71,103 @@ public class KnifeController : MonoBehaviour
             DOVirtual.DelayedCall(0.4f,(()=>isTapped = false));
         }
 
-
+        if (isTouchingGround)
+        {
+            rigidBody.isKinematic = true;
+        }
+        
+        if (!isFailed)
+        {
+            rigidBody.inertiaTensorRotation = Quaternion.identity;
+        }
+        
+    }
+    private void FixedUpdate()
+    {
         TurnSpeedControl();
-        RigidBody.inertiaTensorRotation = Quaternion.identity;
+        rigidBody.inertiaTensorRotation = Quaternion.identity;
     }
 
     void Jump(){
-        RigidBody.velocity = Vector3.zero;
-        RigidBody.angularVelocity = Vector3.zero;
-        knifeBackCollider.isTrigger = true;
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero;
 
         if (isTouchingGround)
         {
             knifeEdgeCollider.enabled = false;
             Invoke("EnableCollider",0.4f);
-            RigidBody.AddForce(new Vector3(0,jumpYStuck,jumpZStuck),ForceMode.Impulse);
+            rigidBody.AddForce(new Vector3(0,jumpYStuck,jumpZStuck),ForceMode.Impulse);
             isTouchingGround = false;
         }
         else
         {
-            RigidBody.AddForce(new Vector3(0,jumpY,jumpZ),ForceMode.Impulse);
+            rigidBody.AddForce(new Vector3(0,jumpY,jumpZ),ForceMode.Impulse);
         } 
     }
 
     void Spin(){
-        RigidBody.AddTorque(spinTorque,ForceMode.Acceleration);
+        rigidBody.AddTorque(spinTorque,ForceMode.Acceleration);
     }
 
     void BaseTurn(){
-        RigidBody.AddTorque(spinTorque,ForceMode.Acceleration);
-        RigidBody.maxAngularVelocity = maxAVFast;
-        RigidBody.angularVelocity = Vector3.zero;     
+        rigidBody.AddTorque(spinTorque,ForceMode.Acceleration);
+        rigidBody.maxAngularVelocity = maxAVFast;
+        rigidBody.angularVelocity = Vector3.zero;     
     }
 
     void TurnSpeedControl(){
         var angle = UnityEditor.TransformUtils.GetInspectorRotation(this.transform);
         knifeAngle = angle.x;
-
-        if(knifeAngle >-10 && knifeAngle< 0 && !isTapped){
-            RigidBody.maxAngularVelocity = maxAVSlow;
-        }
         
-        if(knifeAngle>110 && knifeAngle <120){
+        if (isBounce)
+        {
+            return;
+        }
+
+        if(knifeAngle >-10 && knifeAngle< 0 && !isTapped)
+        {
+            rigidBody.maxAngularVelocity = maxAVSlow;
+        }/* 
+        else if(knifeAngle>240 && knifeAngle <260){
+            rigidBody.AddTorque(spinTorque*1.5f,ForceMode.Acceleration);
+            rigidBody.maxAngularVelocity = maxAVFast*1.5f;
+        }
+        else if((knifeAngle>260 && knifeAngle <270))
+        {
+            rigidBody.maxAngularVelocity = maxAVFast;
+        }*/
+        else if(knifeAngle>110 && knifeAngle <120){
             BaseTurn();
         }
 
         if(isTapped){
-            RigidBody.maxAngularVelocity = maxAVFast;
+            rigidBody.maxAngularVelocity = maxAVFast;
         }
         
         if(isFailed){
-            RigidBody.maxAngularVelocity = 0f;
-            RigidBody.velocity = Vector3.zero;
+            rigidBody.maxAngularVelocity = 0f;
+            rigidBody.velocity = Vector3.zero;
         }
     }
    
     void EnableCollider(){ //* Delayed Call ile yapılabilir
         knifeEdgeCollider.enabled = true;
+        knifeBackCollider.enabled = true;
         isTouchingGround = false;
     }
 
     public void CollisionController(Collider other,string sender){
         string tag = other.tag;
-        
+        touchingObject = tag;
         if (sender == "KnifeEdge")
         {
             if(tag == "Ground"){
                 isTouchingGround = true;
                 isCutting = false;
-                knifeEdgeCollider.isTrigger = false;
             }
             else if (tag == "Cuttable"){
                 isCutting = true;
-                RigidBody.AddForce(Vector3.down,ForceMode.Impulse);
-                DOVirtual.DelayedCall(1,(() => isCutting = false));      
+                DOVirtual.DelayedCall(0.1f,(() => isCutting = false)); 
             }
             else if (tag == "Obstacle"){
                 Fail();
@@ -160,33 +179,28 @@ public class KnifeController : MonoBehaviour
                 Fail();
             }
             else if(tag == "Ground"){
-                RigidBody.MovePosition(new Vector3(transform.position.x,transform.position.y,transform.position.z+jumpZBounce));
+                BaseTurn();
             }
-            else if(!isCutting)
+            else if(!isCutting && tag=="Cuttable")
             {
-                RigidBody.MovePosition(new Vector3(transform.position.x,transform.position.y,transform.position.z+jumpZBounce));
+                Bounce();
             }
         }
     }
-
-    void Bounce(Collider other){
-        Vector3 bounceDirection = (transform.position - other.transform.position).normalized;
-        float tempY=jumpYBounce,tempZ=jumpZBounce;
-        Debug.Log(bounceDirection);
-        tempY = bounceDirection.y<0 ? tempY*-1 : tempY;
-        tempZ = bounceDirection.z<0 ? tempZ*-1 : tempZ;
-
-        if (other.CompareTag("Ground"))
-        {
-           RigidBody.AddTorque(new Vector3(0,tempY,tempZ).normalized,ForceMode.Impulse);
-        }
-        else if(other.CompareTag("Cuttable"))
-        {
-            tempY = 0;
-            RigidBody.MovePosition(new Vector3(transform.position.x,transform.position.y+tempY,transform.position.z+tempZ));
-        }
+    void Bounce(){
+        isBounce = true;
+        rigidBody.MovePosition(new Vector3(transform.position.x,transform.position.y,transform.position.z+jumpZBounce));
+        rigidBody.AddTorque(spinTorque,ForceMode.Acceleration);
+        rigidBody.maxAngularVelocity = maxAVFast;
+        DOVirtual.DelayedCall(0.3f,(()=>isBounce=false));
     }
     private void Fail(){
+        isFailed = true;
+        rigidBody.constraints = RigidbodyConstraints.None;
+        rigidBody.AddForce(new Vector3(0,7,0));
+        rigidBody.isKinematic = false;
+        knifeBackCollider.isTrigger = false;
+        knifeEdgeCollider.isTrigger = false;
     }
 
 }
