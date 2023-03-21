@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -833,31 +833,63 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: jumpY
-      value: 150
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: jumpZ
-      value: 90
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: bounceY
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: bounceZ
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: maxAVFast
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: maxAVSlow
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: jumpYStuck
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: jumpZStuck
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: knifeSpinTorque
       value: 400
       objectReference: {fileID: 0}
+    - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: knifeBackCollider
+      value: 
+      objectReference: {fileID: 804200462}
+    - target: {fileID: 2664257140183300954, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: knifeEdgeCollider
+      value: 
+      objectReference: {fileID: 1148510402}
     - target: {fileID: 2664257140183300955, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: m_Name
       value: Knife
       objectReference: {fileID: 0}
+    - target: {fileID: 2664257140183300955, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664257140183300957, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3436958364978651617, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3436958364978651617, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: m_LocalScale.x
@@ -913,6 +945,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3436958364978651617, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752496872647366716, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8019921299061499164, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
@@ -4944,6 +4980,11 @@ Transform:
   m_Father: {fileID: 976992318}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &804200462 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 7752496872647366716, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+  m_PrefabInstance: {fileID: 85743361}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &807396502
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6479,6 +6520,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4493585093827132993, guid: 8f81a003808474ab790d2eff41fb043a, type: 3}
+--- !u!64 &1148510402 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 8019921299061499167, guid: 1e9f0c222ae84474080fc599726e44a2, type: 3}
+  m_PrefabInstance: {fileID: 85743361}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &1176055841
 MeshCollider:
   m_ObjectHideFlags: 0
