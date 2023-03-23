@@ -17,5 +17,12 @@ public class KnifeEdgeScript : MonoBehaviour
         knifeController.CollisionController(other,"KnifeEdge");
     }
 
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Ground"))
+        {
+            GetComponent<MeshCollider>().enabled = true;
+        }
+    }
+
     
 }

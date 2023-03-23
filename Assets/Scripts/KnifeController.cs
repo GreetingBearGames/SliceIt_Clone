@@ -16,8 +16,8 @@ public class KnifeController : MonoBehaviour
 
     [Space]
     [Header ("Bounce Movement")]
-    [SerializeField] float jumpYBounce;
-    [SerializeField] float jumpZBounce;
+    [SerializeField] float bounceY;
+    [SerializeField] float bounceZ;
 
     [Header ("Stuck Movement")]
     [SerializeField] float jumpYStuck;
@@ -26,9 +26,9 @@ public class KnifeController : MonoBehaviour
     [Space]
     [Header ("Controls")]
 
-    [SerializeField] string touchingObject;
+    [SerializeField] string lastTouchedObject;
     [SerializeField] bool isTouchingGround;
-    [SerializeField] bool isCutting;
+    [SerializeField] public bool isCutting;
     [SerializeField] bool isFailed;
     [SerializeField] bool isMove = true;
     [SerializeField] bool isTapped;
@@ -42,7 +42,7 @@ public class KnifeController : MonoBehaviour
     [Space]
     //[Header ("Scripts")]
 
-
+    GameManager GameManager;
     Rigidbody rigidBody;
     BoxCollider boxCollider;
     Vector3 spinTorque;
@@ -52,7 +52,9 @@ public class KnifeController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         boxCollider = GetComponent<BoxCollider>();
         rigidBody.maxAngularVelocity = 10f;
-        spinTorque = new Vector3(knifeSpinTorque,0,0);        
+        spinTorque = new Vector3(knifeSpinTorque,0,0); 
+        GameManager = FindObjectOfType<GameManager>();
+        Physics.gravity = new Vector3(0,-30f,0);   
     }
 
     private void Update() {
@@ -67,7 +69,7 @@ public class KnifeController : MonoBehaviour
             knifeEdgeCollider.isTrigger = true;
             TurnSpeedControl();
             Jump();
-            Spin();            
+            Spin();
             DOVirtual.DelayedCall(0.4f,(()=>isTapped = false));
         }
 
@@ -109,6 +111,17 @@ public class KnifeController : MonoBehaviour
         rigidBody.AddTorque(spinTorque,ForceMode.Acceleration);
     }
 
+    void BounceBack(){
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.AddForce(new Vector3(0,0,bounceZ),ForceMode.Impulse);
+
+    }
+
+    void BounceUp(){
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.AddForce(new Vector3(0,bounceY,bounceZ),ForceMode.Impulse);
+        Jump();
+    }
     void BaseTurn(){
         rigidBody.AddTorque(spinTorque,ForceMode.Acceleration);
         rigidBody.maxAngularVelocity = maxAVFast;
@@ -150,7 +163,7 @@ public class KnifeController : MonoBehaviour
         }
     }
    
-    void EnableCollider(){ //* Delayed Call ile yapılabilir
+    void EnableCollider(){ 
         knifeEdgeCollider.enabled = true;
         knifeBackCollider.enabled = true;
         isTouchingGround = false;
@@ -158,7 +171,7 @@ public class KnifeController : MonoBehaviour
 
     public void CollisionController(Collider other,string sender){
         string tag = other.tag;
-        touchingObject = tag;
+        lastTouchedObject = tag;
         if (sender == "KnifeEdge")
         {
             if(tag == "Ground"){
@@ -175,24 +188,20 @@ public class KnifeController : MonoBehaviour
         }
         else if (sender == "KnifeBack")
         {
+            rigidBody.isKinematic = false;
             if(tag == "Obstacle"){
                 Fail();
             }
             else if(tag == "Ground"){
+                BounceUp();
                 BaseTurn();
             }
             else if(!isCutting && tag=="Cuttable")
             {
-                Bounce();
+                BounceBack();
+                BaseTurn();
             }
         }
-    }
-    void Bounce(){
-        isBounce = true;
-        rigidBody.MovePosition(new Vector3(transform.position.x,transform.position.y,transform.position.z+jumpZBounce));
-        rigidBody.AddTorque(spinTorque,ForceMode.Acceleration);
-        rigidBody.maxAngularVelocity = maxAVFast;
-        DOVirtual.DelayedCall(0.3f,(()=>isBounce=false));
     }
     private void Fail(){
         isFailed = true;
@@ -201,6 +210,7 @@ public class KnifeController : MonoBehaviour
         rigidBody.isKinematic = false;
         knifeBackCollider.isTrigger = false;
         knifeEdgeCollider.isTrigger = false;
+        GameManager.Instance.LoseLevel();
     }
 
 }
