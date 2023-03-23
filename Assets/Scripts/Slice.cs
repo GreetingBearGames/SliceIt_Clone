@@ -11,6 +11,7 @@ public class Slice : MonoBehaviour
     [SerializeField] SliceCombiner _sliceCombiner;
     [SerializeField] SliceUISpawner _sliceUISpawner;
     [SerializeField] SliceScore _sliceScore;
+    private bool isCollided = false;
 
 
     void Start()
@@ -22,7 +23,7 @@ public class Slice : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.tag == "Cuttable")
+        if (other.gameObject.tag == "Cuttable" || other.gameObject.tag == "CuttableTahta")
         {
             int randomColorIndex = Random.Range(1, _sliceHalfMaterials.Length);
 
@@ -42,6 +43,27 @@ public class Slice : MonoBehaviour
             _sliceCombiner.CounterIncrease();
             _sliceUISpawner.SpawnUIText(other.transform.position);
             _sliceScore.IncreaseScore();
+        }
+
+
+        if (other.gameObject.tag == "CuttableTahta" && !isCollided)
+        {
+            var parent = other.transform.parent;
+
+            for (int i = 0; i < parent.childCount; i++)
+            {
+                isCollided = true;
+                parent.GetChild(i).gameObject.AddComponent(typeof(Rigidbody));
+                parent.GetChild(i).GetComponent<Rigidbody>().useGravity = true;
+                parent.GetChild(i).GetComponent<Rigidbody>().mass = 0.2f;
+                if (i == parent.childCount - 1)
+                {
+                    isCollided = false;
+                }
+            }
+
+
+
         }
     }
 
