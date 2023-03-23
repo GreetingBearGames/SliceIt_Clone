@@ -9,21 +9,22 @@ public class SliceUISpawner : MonoBehaviour
     [SerializeField] GameObject _sliceUI;
 
 
+
     public void SpawnUIText(Vector3 spawningPosition)
     {
-        GameObject createdSliceUI = Instantiate(_sliceUI);
+        GameObject createdSliceUI = Instantiate(_sliceUI, this.transform);
         RectTransform createdRect = createdSliceUI.GetComponent<RectTransform>();
-        createdSliceUI.transform.SetParent(this.transform);
-        createdRect.anchoredPosition = GetUIScreenPosition(spawningPosition, Camera.main,
-                                                            createdRect.anchorMin, _gameScreenCanvas);
-        Destroy(createdSliceUI, createdSliceUI.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        createdRect.anchoredPosition = GetUIScreenPosition(spawningPosition, Camera.main, _gameScreenCanvas);
+        Destroy(createdSliceUI, createdSliceUI.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length + 5);
         //animasyon bittiği an yok etme
     }
 
-    private Vector2 GetUIScreenPosition(Vector3 obj3dPosition, Camera cam3d, Vector2 anchor, GameObject canvas)
+    private Vector2 GetUIScreenPosition(Vector3 obj3dPosition, Camera cam3d, GameObject canvas)
     {
-        Vector2 rootScreen = canvas.GetComponent<RectTransform>().sizeDelta;
-        Vector3 screenPos = cam3d.WorldToViewportPoint(obj3dPosition);
-        return (rootScreen * screenPos) - (rootScreen * anchor);
+        Vector2 anchoredPos;
+        Vector2 screenPos = cam3d.WorldToScreenPoint(obj3dPosition);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(),
+                                                                screenPos, Camera.main, out anchoredPos);
+        return anchoredPos;
     }
 }
