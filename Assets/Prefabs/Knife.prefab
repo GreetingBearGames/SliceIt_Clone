@@ -64,16 +64,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d5cd3f9ce1d084bb5d1bb77ed21546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knifeSpinTorque: 360
-  jumpY: 100
-  jumpZ: 90
-  maxAVSlow: 2
-  maxAVFast: 7
-  jumpYBounce: 2
-  jumpZBounce: -5
-  jumpYStuck: 150
-  jumpZStuck: 90
-  touchingObject: 
+  knifeSpinTorque: 400
+  jumpY: 300
+  jumpZ: 120
+  maxAVSlow: 3
+  maxAVFast: 8
+  bounceY: 80
+  bounceZ: -200
+  jumpYStuck: 300
+  jumpZStuck: 120
+  lastTouchedObject: 
   isTouchingGround: 0
   isCutting: 0
   isFailed: 0
