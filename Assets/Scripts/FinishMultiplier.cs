@@ -11,8 +11,9 @@ public class FinishMultiplier : MonoBehaviour
         //Bıçağı saplama eklenecek.
         if(this.gameObject.tag != "Empty"){
             text = this.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-            string str = text.ToString();
-            str.Remove(str.Length-1);
+            string str = text.text.ToString();
+            str = str.Remove(str.Length-2);
+            Debug.Log(str);
             multiplier = int.Parse(str);
         }
             GameManager.Instance.UpdateMoney(GameManager.Instance.Money*multiplier);
