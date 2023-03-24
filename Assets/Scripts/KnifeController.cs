@@ -65,6 +65,7 @@ public class KnifeController : MonoBehaviour
                 return;
             }
             isTapped = true;
+            isCutting = false;
             rigidBody.isKinematic = false;
             knifeEdgeCollider.isTrigger = true;
             TurnSpeedControl();
@@ -164,7 +165,11 @@ public class KnifeController : MonoBehaviour
     }
    
     void EnableCollider(){ 
-        knifeEdgeCollider.enabled = true;
+        if (!isCutting)
+        {
+            knifeEdgeCollider.enabled = true;
+        }
+        
         knifeBackCollider.enabled = true;
         isTouchingGround = false;
     }
@@ -181,8 +186,7 @@ public class KnifeController : MonoBehaviour
                 isCutting = false;
             }
             else if (tag == "Cuttable"){
-                isCutting = true;
-                DOVirtual.DelayedCall(0.1f,(() => isCutting = false)); 
+                SlicingControl();
             }
             else if (tag == "Obstacle"){
                 Fail();
@@ -208,11 +212,41 @@ public class KnifeController : MonoBehaviour
     private void Fail(){
         isFailed = true;
         rigidBody.constraints = RigidbodyConstraints.None;
-        rigidBody.AddForce(new Vector3(0,7,0));
-        rigidBody.isKinematic = false;
         knifeBackCollider.isTrigger = false;
         knifeEdgeCollider.isTrigger = false;
+        rigidBody.AddForce(new Vector3(7,7,0));
+        rigidBody.isKinematic = false;
         GameManager.Instance.LoseLevel();
+    }
+
+    void SlicingControl(){
+        SliceMovement();
+        isCutting = true;
+        knifeBackCollider.enabled = false;
+        Invoke("EnableColliders",0.5f);
+        DOVirtual.DelayedCall(0.1f,(() => isCutting = false)); 
+    }
+
+    void SliceMovement(){
+        float angularVelocityX = rigidBody.angularVelocity.x;
+        float velocityZ = rigidBody.velocity.z;
+
+        velocityZ -=3;
+        if (angularVelocityX == 0)
+        {
+            velocityZ = 0;
+        }
+        rigidBody.velocity = new Vector3(0,rigidBody.velocity.y,velocityZ);
+
+        if (knifeAngle>30 || knifeAngle<0)
+            return;
+
+        angularVelocityX -= 3;
+        if(knifeAngle >5 && knifeAngle< 15 && !isTapped || angularVelocityX < 0)
+        {
+            angularVelocityX = 0;
+            rigidBody.angularVelocity = new Vector3(angularVelocityX,0,0);
+        }
     }
 
 }

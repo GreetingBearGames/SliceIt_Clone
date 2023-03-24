@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 2664257140183300955}
   m_LocalRotation: {x: 0.86602545, y: 0, z: 0, w: 0.49999994}
   m_LocalPosition: {x: 0.070911236, y: 7.193199, z: -47.825207}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7806720273718026814}
   - {fileID: 3474905398159240020}
@@ -71,7 +71,7 @@ MonoBehaviour:
   maxAVFast: 8
   bounceY: 70
   bounceZ: -200
-  jumpYStuck: 300
+  jumpYStuck: 350
   jumpZStuck: 120
   lastTouchedObject: 
   isTouchingGround: 0
