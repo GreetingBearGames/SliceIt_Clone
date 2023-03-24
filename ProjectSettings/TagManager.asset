@@ -7,6 +7,11 @@ TagManager:
   - Cuttable
   - Ground
   - Obstacle
+  - Easy
+  - Medium
+  - Hard
+  - Expert
+  - Empty
   layers:
   - Default
   - TransparentFX

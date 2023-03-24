@@ -175,6 +175,8 @@ public class KnifeController : MonoBehaviour
         if (sender == "KnifeEdge")
         {
             if(tag == "Ground"){
+                rigidBody.velocity = Vector3.zero;
+                rigidBody.angularVelocity = Vector3.zero;
                 isTouchingGround = true;
                 isCutting = false;
             }

@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: 35dcf45796b22954a9a53f6c1bf9e7ce
+<<<<<<<< HEAD:Assets/Materials/CuttingRed.mat.meta
+guid: d44a675250f76a24d9fc770fb8406245
+NativeFormatImporter:
+========
+guid: f272f5f66db504122be84871a37d330d
 DefaultImporter:
+>>>>>>>> cevo:Assets/Scenes/Level 1.unity.meta
   externalObjects: {}
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
