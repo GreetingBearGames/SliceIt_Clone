@@ -11,7 +11,6 @@ public class Slice : MonoBehaviour
     [SerializeField] SliceCombiner _sliceCombiner;
     [SerializeField] SliceUISpawner _sliceUISpawner;
     [SerializeField] SliceScore _sliceScore;
-    private bool isCollided = false;
 
 
     void Start()
@@ -46,24 +45,19 @@ public class Slice : MonoBehaviour
         }
 
 
-        if (other.gameObject.tag == "CuttableTahta" && !isCollided)
+        if (other.gameObject.tag == "CuttableTahta")
         {
             var parent = other.transform.parent;
 
             for (int i = 0; i < parent.childCount; i++)
             {
-                isCollided = true;
-                parent.GetChild(i).gameObject.AddComponent(typeof(Rigidbody));
-                parent.GetChild(i).GetComponent<Rigidbody>().useGravity = true;
-                parent.GetChild(i).GetComponent<Rigidbody>().mass = 0.2f;
-                if (i == parent.childCount - 1)
+                if (parent.GetChild(i).GetComponent<Rigidbody>() == null)
                 {
-                    isCollided = false;
+                    parent.GetChild(i).gameObject.AddComponent(typeof(Rigidbody));
+                    parent.GetChild(i).GetComponent<Rigidbody>().useGravity = true;
+                    parent.GetChild(i).GetComponent<Rigidbody>().mass = 0.2f;
                 }
             }
-
-
-
         }
     }
 
