@@ -114,6 +114,7 @@ public class KnifeController : MonoBehaviour
     void BounceBack(){
         rigidBody.velocity = Vector3.zero;
         rigidBody.AddForce(new Vector3(0,0,bounceZ),ForceMode.Impulse);
+
     }
 
     void BounceUp(){
@@ -176,8 +177,6 @@ public class KnifeController : MonoBehaviour
             if(tag == "Ground"){
                 isTouchingGround = true;
                 isCutting = false;
-                rigidBody.velocity = Vector3.zero;
-                rigidBody.angularVelocity = Vector3.zero;
             }
             else if (tag == "Cuttable"){
                 isCutting = true;
@@ -194,7 +193,6 @@ public class KnifeController : MonoBehaviour
                 Fail();
             }
             else if(tag == "Ground"){
-                Debug.Log("Ground");
                 BounceUp();
                 BaseTurn();
             }
