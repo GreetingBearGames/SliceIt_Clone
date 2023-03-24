@@ -66,10 +66,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knifeSpinTorque: 400
   jumpY: 300
-  jumpZ: 120
+  jumpZ: 150
   maxAVSlow: 3
   maxAVFast: 8
-  bounceY: 80
+  bounceY: 70
   bounceZ: -200
   jumpYStuck: 300
   jumpZStuck: 120
@@ -189,7 +189,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3911557631133096816}
   m_Material: {fileID: 13400000, guid: 13fed24025a980b438ff0a44ccd3aa30, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
