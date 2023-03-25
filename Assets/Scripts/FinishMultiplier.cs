@@ -10,9 +10,10 @@ public class FinishMultiplier : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         //Bıçağı saplama eklenecek.
         if(this.gameObject.tag != "Empty"){
+            this.GetComponent<Animator>().enabled = true;
             text = this.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
             string str = text.text.ToString();
-            str = str.Remove(str.Length-2);
+            str = str.Remove(str.Length-1);
             Debug.Log(str);
             multiplier = int.Parse(str);
         }

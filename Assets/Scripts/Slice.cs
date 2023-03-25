@@ -48,7 +48,7 @@ public class Slice : MonoBehaviour
         if (other.gameObject.tag == "CuttableTahta")
         {
             var parent = other.transform.parent;
-
+            SoundManager.instance.Play("Slice");
             for (int i = 0; i < parent.childCount; i++)
             {
                 if (parent.GetChild(i).GetComponent<Rigidbody>() == null)
