@@ -8,11 +8,9 @@ TagManager:
   - Ground
   - Obstacle
   - Easy
-  - Medium
-  - Hard
-  - Expert
   - Empty
   - CuttableTahta
+  - Multiplier
   layers:
   - Default
   - TransparentFX

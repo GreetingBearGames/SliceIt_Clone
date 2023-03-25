@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2025622923242330009}
   m_Layer: 0
   m_Name: Hard
-  m_TagString: Easy
+  m_TagString: Multiplier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 2025622923253165994}
   m_Layer: 0
   m_Name: Hard 1
-  m_TagString: Easy
+  m_TagString: Multiplier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 2025622923259448686}
   m_Layer: 0
   m_Name: Easy
-  m_TagString: Easy
+  m_TagString: Multiplier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 2025622923368144037}
   m_Layer: 0
   m_Name: Medium 1
-  m_TagString: Easy
+  m_TagString: Multiplier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1329,7 +1329,7 @@ GameObject:
   - component: {fileID: 2025622923779466848}
   m_Layer: 0
   m_Name: Medium
-  m_TagString: Easy
+  m_TagString: Multiplier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1676,7 +1676,7 @@ GameObject:
   - component: {fileID: 2025622923989938691}
   m_Layer: 0
   m_Name: Expert
-  m_TagString: Easy
+  m_TagString: Multiplier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
