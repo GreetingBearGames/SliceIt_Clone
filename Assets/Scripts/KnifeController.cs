@@ -13,6 +13,7 @@ public class KnifeController : MonoBehaviour
     [SerializeField] float jumpZ;
     [SerializeField] float maxAVSlow;
     [SerializeField] float maxAVFast;
+    [SerializeField] Transform controlPoint;
 
     [Space]
     [Header ("Bounce Movement")]
@@ -131,15 +132,24 @@ public class KnifeController : MonoBehaviour
     }
 
     void TurnSpeedControl(){
-        var angle = UnityEditor.TransformUtils.GetInspectorRotation(this.transform);
-        knifeAngle = angle.x;
+        knifeAngle = transform.rotation.eulerAngles.x;
+        float temp = knifeAngle;
+        if(transform .position.z > controlPoint.transform.position.z){
+            //Debug.Log( knifeAngle + " " + transform.position.z.ToString() + " " + controlPoint.transform.position.z.ToString());
+            knifeAngle = 180 - knifeAngle;
+            if (knifeAngle < 0 && temp > 0)
+            {
+                knifeAngle = 360 + knifeAngle;
+            }
+        }
+
         
         if (isBounce)
         {
             return;
         }
 
-        if(knifeAngle >-10 && knifeAngle< 0 && !isTapped)
+        if(knifeAngle >0 && knifeAngle< 10 && !isTapped)
         {
             rigidBody.maxAngularVelocity = maxAVSlow;
         }/* 
@@ -252,11 +262,11 @@ public class KnifeController : MonoBehaviour
         }
         rigidBody.velocity = new Vector3(0,rigidBody.velocity.y,velocityZ);
 
-        if (knifeAngle>30 || knifeAngle<0)
+        if (knifeAngle>40 || knifeAngle<10)
             return;
 
         angularVelocityX -= 3;
-        if(knifeAngle >5 && knifeAngle< 15 && !isTapped || angularVelocityX < 0)
+        if(knifeAngle >15 && knifeAngle< 25 && !isTapped || angularVelocityX < 0)
         {
             angularVelocityX = 0;
             rigidBody.angularVelocity = new Vector3(angularVelocityX,0,0);
