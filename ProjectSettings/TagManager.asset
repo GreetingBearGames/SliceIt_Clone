@@ -12,6 +12,7 @@ TagManager:
   - Hard
   - Expert
   - Empty
+  - CuttableTahta
   layers:
   - Default
   - TransparentFX
