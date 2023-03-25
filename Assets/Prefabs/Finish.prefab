@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!95 &983394959
 Animator:
   serializedVersion: 4
@@ -244,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!95 &213851441
 Animator:
   serializedVersion: 4
@@ -376,6 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!95 &125634984
 Animator:
   serializedVersion: 4
@@ -778,6 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!95 &1193031747
 Animator:
   serializedVersion: 4
@@ -1009,6 +1013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!1 &2025622923473867217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,6 +1124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!1 &2025622923582231954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,6 +1516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!95 &759589680
 Animator:
   serializedVersion: 4
@@ -1878,6 +1885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!95 &1635549867
 Animator:
   serializedVersion: 4
@@ -2927,6 +2935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623294a9310df4745bc3f938843b9a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishCoinAmount: {fileID: 0}
 --- !u!1001 &2025622923277753865
 PrefabInstance:
   m_ObjectHideFlags: 0

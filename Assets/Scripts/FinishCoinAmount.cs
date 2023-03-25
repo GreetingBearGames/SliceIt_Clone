@@ -5,6 +5,7 @@ using TMPro;
 
 public class FinishCoinAmount : MonoBehaviour
 {
+    private int multiplier = 1;
     void Awake()
     {
         FinishCoinCalculator();
@@ -13,6 +14,19 @@ public class FinishCoinAmount : MonoBehaviour
 
     private void FinishCoinCalculator()
     {
-        GetComponent<TextMeshProUGUI>().text = "$ " + GameManager.Instance.LevelStartScore.ToString();
+        Debug.Log(multiplier);
+
+        var money = GameManager.Instance.Money - GameManager.Instance.LevelStartScore;
+        var multipliedMoney = money * multiplier;
+
+        Debug.Log(money);
+        Debug.Log(multipliedMoney);
+
+        GetComponent<TextMeshProUGUI>().text = "$ " + multipliedMoney.ToString();
+    }
+
+    public void GetFinishMultiplier(int hitMultiplier)
+    {
+        multiplier = hitMultiplier;
     }
 }
