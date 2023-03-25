@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,7 +50,13 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-
+        if(SceneManager.GetActiveScene().buildIndex == 0){
+            SceneManager.LoadScene(1);
+        }
+        else{
+            SceneManager.LoadScene(0);
+        }
+        
     }
     public void LoseLevel()
     {
@@ -57,7 +64,7 @@ public class GameManager : MonoBehaviour
     }
     public void RetryLevel()
     {
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void FinishLevel()
@@ -69,6 +76,4 @@ public class GameManager : MonoBehaviour
     {
 
     }
-
-
 }

@@ -8,6 +8,9 @@ public class FinishMultiplier : MonoBehaviour
     private TextMeshProUGUI text;
     private int multiplier = 1;
     private void OnTriggerEnter(Collider other) {
+        foreach(var collider in this.transform.parent.GetComponentsInChildren<BoxCollider>()){
+            collider.enabled = false;
+        }
         //Bıçağı saplama eklenecek.
         if(this.gameObject.tag != "Empty"){
             this.GetComponent<Animator>().enabled = true;
@@ -17,6 +20,7 @@ public class FinishMultiplier : MonoBehaviour
             Debug.Log(str);
             multiplier = int.Parse(str);
         }
+            GameManager.Instance.FinishLevel();
             GameManager.Instance.UpdateMoney(GameManager.Instance.Money*multiplier);
             this.transform.parent.GetChild(0).GetComponent<ParticleSystem>().Play();
             SoundManager.instance.Play("WinLevel");
