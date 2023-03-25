@@ -192,7 +192,7 @@ public class KnifeController : MonoBehaviour
             else if (tag == "Cuttable"){
                 SlicingControl();
             }
-            else if (tag == "Obstacle"){
+            else if (tag == "FailGround"){
                 Fail();
             }
             else if (tag == "Empty" || tag == "Multiplier"){
@@ -206,7 +206,7 @@ public class KnifeController : MonoBehaviour
         else if (sender == "KnifeBack")
         {
             rigidBody.isKinematic = false;
-            if(tag == "Obstacle"){
+            if(tag == "FailGround"){
                 Fail();
             }
             else if(tag == "Ground"){
