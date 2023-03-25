@@ -30,6 +30,7 @@ public class KnifeController : MonoBehaviour
     [SerializeField] bool isTouchingGround;
     [SerializeField] public bool isCutting;
     [SerializeField] bool isFailed;
+    [SerializeField] bool isFinished;
     [SerializeField] bool isMove = true;
     [SerializeField] bool isTapped;
     [SerializeField] bool isBounce;
@@ -60,18 +61,7 @@ public class KnifeController : MonoBehaviour
     private void Update() {
         if (Input.GetMouseButtonDown(0))
         {   
-            if (isFailed)
-            {
-                return;
-            }
-            isTapped = true;
-            isCutting = false;
-            rigidBody.isKinematic = false;
-            knifeEdgeCollider.isTrigger = true;
-            TurnSpeedControl();
-            Jump();
-            Spin();
-            DOVirtual.DelayedCall(0.4f,(()=>isTapped = false));
+            InputController();
         }
 
         if (isTouchingGround)
@@ -91,6 +81,20 @@ public class KnifeController : MonoBehaviour
         rigidBody.inertiaTensorRotation = Quaternion.identity;
     }
 
+    void InputController(){
+            if (isFailed || isFinished)
+            {
+                return;
+            }
+            isTapped = true;
+            isCutting = false;
+            rigidBody.isKinematic = false;
+            knifeEdgeCollider.isTrigger = true;
+            TurnSpeedControl();
+            Jump();
+            Spin();
+            DOVirtual.DelayedCall(0.4f,(()=>isTapped = false));
+    }
     void Jump(){
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = Vector3.zero;
@@ -190,6 +194,13 @@ public class KnifeController : MonoBehaviour
             }
             else if (tag == "Obstacle"){
                 Fail();
+            }
+            else if (tag == "Empty" || tag == "Multiplier"){
+                isFinished = true;
+                rigidBody.velocity = Vector3.zero;
+                rigidBody.angularVelocity = Vector3.zero;
+                rigidBody.isKinematic = true;
+                rigidBody.constraints = RigidbodyConstraints.FreezeAll;
             }            
         }
         else if (sender == "KnifeBack")

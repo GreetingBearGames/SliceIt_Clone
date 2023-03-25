@@ -69,14 +69,15 @@ MonoBehaviour:
   jumpZ: 120
   maxAVSlow: 3
   maxAVFast: 8
-  bounceY: 70
-  bounceZ: -200
+  bounceY: 50
+  bounceZ: -140
   jumpYStuck: 350
-  jumpZStuck: 120
+  jumpZStuck: 130
   lastTouchedObject: 
   isTouchingGround: 0
   isCutting: 0
   isFailed: 0
+  isFinished: 0
   isMove: 1
   isTapped: 0
   isBounce: 0
