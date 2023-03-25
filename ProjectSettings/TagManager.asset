@@ -11,6 +11,7 @@ TagManager:
   - Empty
   - CuttableTahta
   - Multiplier
+  - FailGround
   layers:
   - Default
   - TransparentFX
