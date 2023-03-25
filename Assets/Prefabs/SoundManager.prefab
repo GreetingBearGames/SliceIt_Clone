@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4320117975070549113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4320117975070549112}
+  - component: {fileID: 4320117975070549119}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4320117975070549112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320117975070549113}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4320117975070549119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320117975070549113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a8b291d384725846b04a6c75e2ba16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: InGameMusic
+    clip: {fileID: 8300000, guid: 3b4742f3256f4354ab8b8ffde7571102, type: 3}
+    volume: 0.193
+    pitch: 1
+    isLoop: 1
+    hasCooldown: 0
+    source: {fileID: 0}
+    playOnAwake: 1
+  - name: KnifeHandleHit
+    clip: {fileID: 8300000, guid: 1eae29528fd35a141ae4c09ae3b234fa, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+    playOnAwake: 0
+  - name: KnifeHitFloor
+    clip: {fileID: 8300000, guid: 9135fd5cf5fbd694e992729642db2051, type: 3}
+    volume: 0.403
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+    playOnAwake: 0
+  - name: Slice
+    clip: {fileID: 8300000, guid: 7196eff780d2d3e47843304ee2961e90, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+    playOnAwake: 0
+  - name: KnifeTurn
+    clip: {fileID: 8300000, guid: 5e4295085103c4b4195705c4f47eddbf, type: 3}
+    volume: 0.118
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+    playOnAwake: 0
+  - name: WinLevel
+    clip: {fileID: 8300000, guid: 2e5d9ad53a66c7448812acd11aec3c90, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    source: {fileID: 0}
+    playOnAwake: 0

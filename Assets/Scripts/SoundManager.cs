@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour
     {
         // Add this part after having a theme song
         // Play('Theme');
-        Play("In Game Music");
+        Play("InGameMusic");
     }
     public void Play(string name)
     {

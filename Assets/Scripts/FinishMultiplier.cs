@@ -18,6 +18,7 @@ public class FinishMultiplier : MonoBehaviour
         }
             GameManager.Instance.UpdateMoney(GameManager.Instance.Money*multiplier);
             this.transform.parent.GetChild(0).GetComponent<ParticleSystem>().Play();
+            SoundManager.instance.Play("WinLevel");
             this.transform.parent.GetChild(1).gameObject.SetActive(true);
             StartCoroutine(FinishUI());
     }

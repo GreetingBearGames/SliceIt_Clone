@@ -64,6 +64,7 @@ public class KnifeController : MonoBehaviour
             {
                 return;
             }
+            SoundManager.instance.Play("KnifeTurn");
             isTapped = true;
             isCutting = false;
             rigidBody.isKinematic = false;
@@ -180,12 +181,14 @@ public class KnifeController : MonoBehaviour
         if (sender == "KnifeEdge")
         {
             if(tag == "Ground"){
+                SoundManager.instance.Play("KnifeHitFloor");
                 rigidBody.velocity = Vector3.zero;
                 rigidBody.angularVelocity = Vector3.zero;
                 isTouchingGround = true;
                 isCutting = false;
             }
             else if (tag == "Cuttable"){
+                SoundManager.instance.Play("Slice");
                 SlicingControl();
             }
             else if (tag == "Obstacle"){
@@ -195,6 +198,7 @@ public class KnifeController : MonoBehaviour
         else if (sender == "KnifeBack")
         {
             rigidBody.isKinematic = false;
+            SoundManager.instance.Play("KnifeHandleHit");
             if(tag == "Obstacle"){
                 Fail();
             }
