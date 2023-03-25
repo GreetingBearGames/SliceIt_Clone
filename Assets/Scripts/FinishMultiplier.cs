@@ -12,7 +12,7 @@ public class FinishMultiplier : MonoBehaviour
         if(this.gameObject.tag != "Empty"){
             text = this.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
             string str = text.text.ToString();
-            str = str.Remove(str.Length-2);
+            str = str.Remove(str.Length-1);
             Debug.Log(str);
             multiplier = int.Parse(str);
         }

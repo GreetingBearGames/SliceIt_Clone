@@ -191,15 +191,21 @@ public class KnifeController : MonoBehaviour
                 SoundManager.instance.Play("Slice");
                 SlicingControl();
             }
-            else if (tag == "Obstacle"){
+            else if (tag == "FailGround"){
                 Fail();
+            }
+            else if(tag == "Empty" || tag == "Multiplier"){
+                rigidBody.isKinematic = true;
+                rigidBody.velocity = Vector3.zero;
+                rigidBody.angularVelocity = Vector3.zero;
+                rigidBody.constraints = RigidbodyConstraints.FreezeAll;
             }            
         }
         else if (sender == "KnifeBack")
         {
             rigidBody.isKinematic = false;
             SoundManager.instance.Play("KnifeHandleHit");
-            if(tag == "Obstacle"){
+            if(tag == "FailGround"){
                 Fail();
             }
             else if(tag == "Ground"){
@@ -211,6 +217,10 @@ public class KnifeController : MonoBehaviour
                 BounceBack();
                 BaseTurn();
             }
+            else if(tag == "Empty" || tag == "Multiplier"){
+                BounceBack();
+                BaseTurn();
+            }
         }
     }
     private void Fail(){
@@ -218,7 +228,7 @@ public class KnifeController : MonoBehaviour
         rigidBody.constraints = RigidbodyConstraints.None;
         knifeBackCollider.isTrigger = false;
         knifeEdgeCollider.isTrigger = false;
-        rigidBody.AddForce(new Vector3(7,7,0));
+        rigidBody.AddForce(new Vector3(70,70,0));
         rigidBody.isKinematic = false;
         GameManager.Instance.LoseLevel();
     }
